@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APS API — XIV Labs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            surface: '#f5f1e8',
+            card: '#fffaf0',
+            border: '#c8c0b3',
+            borderHover: '#000000',
+            heading: '#000000',
+            body: '#24211d',
+            muted: '#5d574e',
+          },
+          fontFamily: {
+            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #edeae2;
+      color: #000000;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #000; }
+
+    .interactive-element { transition: all 0.2s ease; }
+    .interactive-element:hover { border-color: #000000; }
+
+    .dark-surface { background-color: #000000; color: #ffffff; }
+    .dark-surface .text-muted { color: #a8a29e; }
+
+    /* Code block */
+    pre {
+      background: #000;
+      color: #e5e7eb;
+      border-radius: 0;
+      padding: 1rem 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+    .token-key   { color: #7dd3fc; }
+    .token-str   { color: #86efac; }
+    .token-bool  { color: #fca5a5; }
+    .token-num   { color: #fde68a; }
+
+    /* Key reveal box */
+    #key-box {
+      background: #000;
+      border: 1px solid #333;
+      color: #22c55e;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      padding: 14px 16px;
+      letter-spacing: 0.04em;
+      word-break: break-all;
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-black selection:text-white">
+
+  <header class="border-b border-border bg-black dark-surface sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center group">
+        <span class="font-mono text-xs font-medium tracking-wider text-white flex items-center gap-2">
+          F4LCON <span class="text-muted">/</span> xivlabs.tech
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-mono">
+        <a href="/#about"      class="text-muted hover:text-white transition-colors">About</a>
+        <a href="/#projects"   class="text-muted hover:text-white transition-colors">Projects</a>
+        <a href="/#tech-stack" class="text-muted hover:text-white transition-colors">Tech Stack</a>
+        <a href="/#activity"   class="text-muted hover:text-white transition-colors">Activity</a>
+        <a href="https://github.com/itsF4LCON" target="_blank" class="text-muted hover:text-white transition-colors">GitHub</a>
+      </nav>
+
+      <div class="flex items-center space-x-2 text-[10px] font-mono tracking-widest text-muted">
+        <span class="w-1.5 h-1.5 bg-muted rounded-full"></span>
+        <span>BE</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pt-24 pb-20 space-y-20 w-full flex-grow">
+
+    <section class="space-y-6">
+      <div class="inline-flex items-center border border-border px-3 py-1 text-[10px] font-mono text-muted uppercase tracking-wider">
+        API Access
+      </div>
+      <div class="space-y-3 max-w-2xl">
+        <h1 class="text-4xl sm:text-5xl font-medium text-heading tracking-tight">APS Edge API</h1>
+        <p class="text-lg leading-relaxed text-body font-light">
+          Sub-15ms phishing URL detection on Cloudflare's global edge network.
+          The browser extension works out of the box — no key needed.
+          Direct API access for your own projects requires a key.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-4 pt-2">
+        <a href="https://github.com/itsF4LCON/aps" target="_blank"
+           class="inline-flex items-center space-x-2 bg-heading text-white hover:bg-body px-5 py-2.5 text-xs font-mono font-medium transition-colors">
+          <span>View Source</span>
+          <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+        </a>
+        <a href="https://chromewebstore.google.com" target="_blank"
+           class="inline-flex items-center space-x-2 border border-border hover:border-borderHover text-heading px-5 py-2.5 text-xs font-mono transition-colors">
+          <span>Get Extension</span>
+          <i data-lucide="arrow-right" class="w-3 h-3"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="space-y-8">
+      <div class="flex items-center justify-between border-b border-border pb-4">
+        <h2 class="text-lg font-medium text-heading">How It Works</h2>
+        <span class="text-xs font-mono text-muted">Architecture</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-6 border border-border bg-black dark-surface">
+          <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-3">01</div>
+          <h3 class="text-sm font-medium text-white mb-2">Domain Cache</h3>
+          <p class="text-sm text-gray-400 font-light">Checks Cloudflare D1 for a previously seen verdict. Returns in &lt;5ms if found.</p>
+        </div>
+        <div class="p-6 border border-border bg-black dark-surface">
+          <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-3">02</div>
+          <h3 class="text-sm font-medium text-white mb-2">AI Classification</h3>
+          <p class="text-sm text-gray-400 font-light">New domains are evaluated by Llama 3.1 running on Workers AI. Result is cached for 7 days.</p>
+        </div>
+        <div class="p-6 border border-border bg-black dark-surface">
+          <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-3">03</div>
+          <h3 class="text-sm font-medium text-white mb-2">Edge Response</h3>
+          <p class="text-sm text-gray-400 font-light">Verdict delivered from the nearest Cloudflare PoP. Globally sub-15ms for cached domains.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-8">
+      <div class="flex items-center justify-between border-b border-border pb-4">
+        <h2 class="text-lg font-medium text-heading">API Reference</h2>
+        <span class="text-xs font-mono text-muted">v1.0</span>
+      </div>
+
+      <div class="border border-border bg-surface p-6 space-y-5">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs bg-black text-white px-2 py-1">POST</span>
+          <span class="font-mono text-sm text-heading">https://api.xivlabs.tech/scan</span>
+        </div>
+
+        <p class="text-sm text-body font-light">
+          Scans a URL and returns a verdict. Requires an <code class="font-mono text-xs bg-card border border-border px-1">X-API-Key</code> header for direct API access.
+          The browser extension is exempt — it is identified by its browser origin automatically.
+        </p>
+
+        <div class="space-y-3">
+          <div class="text-[10px] font-mono text-muted uppercase tracking-wider">Request</div>
+          <pre><span class="text-gray-500">// Headers</span>
+Content-Type: application/json
+X-API-Key: aps_<span class="token-str">your_key_here</span>
+
+<span class="text-gray-500">// Body</span>
+{
+  <span class="token-key">"url"</span>: <span class="token-str">"https://example.com"</span>
+}</pre>
+        </div>
+
+        <div class="space-y-3">
+          <div class="text-[10px] font-mono text-muted uppercase tracking-wider">Response</div>
+          <pre>{
+  <span class="token-key">"blocked"</span>: <span class="token-bool">false</span>,
+  <span class="token-key">"reason"</span>: <span class="token-str">"Base domain verified as safe in cache."</span>
+}</pre>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
+          <div class="border border-border p-3 text-center">
+            <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-1">200</div>
+            <div class="text-xs text-heading">Success</div>
+          </div>
+          <div class="border border-border p-3 text-center">
+            <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-1">400</div>
+            <div class="text-xs text-heading">Bad URL</div>
+          </div>
+          <div class="border border-border p-3 text-center">
+            <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-1">401</div>
+            <div class="text-xs text-heading">No Key</div>
+          </div>
+          <div class="border border-border p-3 text-center">
+            <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-1">429</div>
+            <div class="text-xs text-heading">Rate Limited</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border border-border bg-surface p-6 space-y-4">
+        <h3 class="text-sm font-medium text-heading">Rate Limits</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex items-start gap-3">
+            <div class="w-1.5 h-1.5 bg-heading rounded-full mt-1.5 shrink-0"></div>
+            <div>
+              <div class="text-xs font-mono text-heading mb-0.5">Extension</div>
+              <div class="text-sm text-body font-light">30 requests / IP / minute. Shared pool — fair use.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-1.5 h-1.5 bg-heading rounded-full mt-1.5 shrink-0"></div>
+            <div>
+              <div class="text-xs font-mono text-heading mb-0.5">API Key</div>
+              <div class="text-sm text-body font-light">30 requests / IP / minute. Same limit, separate access path.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-8" id="get-key">
+      <div class="flex items-center justify-between border-b border-border pb-4">
+        <h2 class="text-lg font-medium text-heading">Get an API Key</h2>
+        <span class="text-xs font-mono text-muted">Free</span>
+      </div>
+
+      <div class="border border-border bg-surface p-6 space-y-6 max-w-xl">
+        <p class="text-sm text-body font-light leading-relaxed">
+          Keys are issued instantly. Store yours securely — it won't be shown again.
+          Each key is rate-limited per IP so one compromised key can't abuse the service.
+        </p>
+
+        <div class="space-y-4">
+          <button id="generate-btn"
+            class="inline-flex items-center space-x-2 bg-heading text-white hover:bg-body px-5 py-2.5 text-xs font-mono font-medium transition-colors disabled:opacity-50">
+            <i data-lucide="key" class="w-3 h-3"></i>
+            <span id="generate-label">Generate Key</span>
+          </button>
+
+          <div id="key-box" role="status" aria-live="polite"></div>
+
+          <div id="key-actions" class="hidden flex items-center gap-4">
+            <button id="copy-btn"
+              class="inline-flex items-center space-x-2 border border-border hover:border-borderHover text-heading px-4 py-2 text-xs font-mono transition-colors">
+              <i data-lucide="copy" class="w-3 h-3"></i>
+              <span>Copy Key</span>
+            </button>
+            <span class="text-[10px] font-mono text-muted uppercase tracking-wider">
+              ⚠ save this — it won't be shown again
+            </span>
+          </div>
+
+          <div id="key-error" class="hidden text-xs font-mono text-red-600"></div>
+        </div>
+
+        <div class="space-y-3 pt-2 border-t border-border">
+          <div class="text-[10px] font-mono text-muted uppercase tracking-wider">Quick Start</div>
+          <pre>const res = await fetch(<span class="token-str">"https://api.xivlabs.tech/scan"</span>, {
+  method: <span class="token-str">"POST"</span>,
+  headers: {
+    <span class="token-str">"Content-Type"</span>: <span class="token-str">"application/json"</span>,
+    <span class="token-str">"X-API-Key"</span>: <span class="token-str">"aps_your_key_here"</span>,
+  },
+  body: JSON.stringify({ url: <span class="token-str">"https://example.com"</span> }),
+});
+const { blocked, reason } = await res.json();</pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-border bg-surface py-8">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-muted gap-4">
+      <span>XIV LABS &copy; 2026 / itsF4LCON</span>
+      <div class="flex space-x-6">
+        <a href="https://github.com/itsF4LCON" class="hover:text-heading transition-colors">GitHub</a>
+        <a href="https://pypi.org/user/itsF4LCON/" class="hover:text-heading transition-colors">Pypi</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+
+      const generateBtn   = document.getElementById('generate-btn');
+      const generateLabel = document.getElementById('generate-label');
+      const keyBox        = document.getElementById('key-box');
+      const keyActions    = document.getElementById('key-actions');
+      const copyBtn       = document.getElementById('copy-btn');
+      const keyError      = document.getElementById('key-error');
+      let currentKey      = '';
+
+      generateBtn.addEventListener('click', async () => {
+        generateBtn.disabled = true;
+        generateLabel.textContent = 'Generating…';
+        keyError.classList.add('hidden');
+        keyBox.style.display = 'none';
+        keyActions.classList.add('hidden');
+
+        try {
+          const res = await fetch('https://api.xivlabs.tech/keygen', { method: 'POST' });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          currentKey = data.key;
+
+          keyBox.textContent = currentKey;
+          keyBox.style.display = 'block';
+          keyActions.classList.remove('hidden');
+          generateLabel.textContent = 'Generate Another';
+        } catch (err) {
+          keyError.textContent = 'Failed to generate key. Please try again.';
+          keyError.classList.remove('hidden');
+          generateLabel.textContent = 'Generate Key';
+        } finally {
+          generateBtn.disabled = false;
+          lucide.createIcons(); // re-render icons after DOM update
+        }
+      });
+
+      copyBtn.addEventListener('click', async () => {
+        if (!currentKey) return;
+        try {
+          await navigator.clipboard.writeText(currentKey);
+          const icon = copyBtn.querySelector('span');
+          icon.textContent = 'Copied!';
+          setTimeout(() => { icon.textContent = 'Copy Key'; }, 2000);
+        } catch {
+          // fallback for non-secure contexts
+          const ta = document.createElement('textarea');
+          ta.value = currentKey;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
