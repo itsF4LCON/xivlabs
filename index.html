@@ -290,7 +290,8 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        lucide.createIcons();
+        // Don't let an icon CDN failure block the activity feed
+        try { lucide.createIcons(); } catch (e) { console.error('Lucide failed to load:', e); }
         fetchGitHubActivity();
     });
 
@@ -304,19 +305,22 @@
             // 1. Check event stream
             const eventsRes = await fetch(`https://api.github.com/users/${username}/events/public`);
             
-            if (eventsRes.status === 403) {
+            if (eventsRes.status === 403 || eventsRes.status === 429) {
                 renderError(feedContainer, 'ERR_RATE_LIMIT', 'GitHub API rate limit reached. Please try again later.');
                 return;
             }
 
             if (eventsRes.ok) {
                 const events = await eventsRes.json();
-                const pushEvents = Array.isArray(events) 
-                    ? events.filter(e => e.type === 'PushEvent').slice(0, 6) 
+                const pushEvents = Array.isArray(events)
+                    ? events
+                        .filter(e => e.type === 'PushEvent')
+                        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                        .slice(0, 6)
                     : [];
 
                 if (pushEvents.length > 0) {
-                    renderPushEvents(feedContainer, pushEvents);
+                    await renderPushEvents(feedContainer, pushEvents);
                     return;
                 }
             }
@@ -340,16 +344,36 @@
         }
     }
 
-    function renderPushEvents(container, events) {
-        container.innerHTML = '';
-        events.forEach(event => {
+    // GitHub no longer includes payload.commits in PushEvents, so look up the
+    // head commit's message separately.
+    async function renderPushEvents(container, events) {
+        const items = await Promise.all(events.map(async (event) => {
             const repoName = event.repo ? event.repo.name : 'Unknown Repository';
-            const commitMsg = (event.payload && event.payload.commits && event.payload.commits.length > 0)
-                ? event.payload.commits[0].message
-                : 'No commit message attached';
+            const payload = event.payload || {};
+            const branch = (payload.ref || '').replace('refs/heads/', '');
+            let commitMsg = null;
 
-            appendFeedItem(container, repoName, commitMsg, timeSince(new Date(event.created_at)));
-        });
+            if (payload.commits && payload.commits.length > 0) {
+                commitMsg = payload.commits[payload.commits.length - 1].message;
+            } else if (payload.head) {
+                try {
+                    const res = await fetch(`https://api.github.com/repos/${repoName}/commits/${payload.head}`);
+                    if (res.ok) {
+                        const commit = await res.json();
+                        commitMsg = commit.commit && commit.commit.message;
+                    }
+                } catch (e) { /* fall through to generic message */ }
+            }
+
+            return {
+                repoName,
+                message: commitMsg ? commitMsg.split('\n')[0] : `Pushed to ${branch || 'repository'}`,
+                timeAgo: timeSince(new Date(event.created_at))
+            };
+        }));
+
+        container.innerHTML = '';
+        items.forEach(item => appendFeedItem(container, item.repoName, item.message, item.timeAgo));
     }
 
     async function renderRecentCommitsFromRepos(container, repos) {
