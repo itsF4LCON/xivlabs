@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume — F4LCON</title>
+  <meta name="description" content="Resume of F4LCON, a student developer from Belgium building security and privacy tools on Rust and Cloudflare.">
+  <link rel="canonical" href="https://xivlabs.tech/resume">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            surface: '#f5f1e8',
+            card: '#fffaf0',
+            border: '#c8c0b3',
+            borderHover: '#000000',
+            heading: '#000000',
+            body: '#24211d',
+            muted: '#5d574e',
+          },
+          fontFamily: {
+            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #edeae2;
+      color: #000000;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #000; }
+
+    .dark-surface { background-color: #000000; color: #ffffff; }
+    .dark-surface .text-muted { color: #a8a29e; }
+    .dark-surface .bg-muted { background-color: #a8a29e; }
+
+    .entry + .entry { border-top: 1px solid #c8c0b3; }
+
+    @page { size: A4; margin: 14mm 16mm; }
+    @media print {
+      body { background: #ffffff; font-size: 10.5pt; }
+      header, footer, .no-print { display: none !important; }
+      main { padding: 0 !important; max-width: none !important; }
+      .sheet { border: none !important; padding: 0 !important; background: #ffffff !important; }
+      .entry { break-inside: avoid; padding-top: 0.45rem !important; padding-bottom: 0.45rem !important; }
+      section { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+      .print-url::after { content: " (" attr(data-url) ")"; color: #5d574e; font-size: 0.85em; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-black selection:text-white">
+
+  <header class="border-b border-border bg-black dark-surface sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center group">
+        <span class="font-mono text-xs font-medium tracking-wider text-white flex items-center gap-2">
+          F4LCON <span class="text-muted">/</span> xivlabs.tech
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-mono">
+        <a href="/#about"      class="text-muted hover:text-white transition-colors">About</a>
+        <a href="/#projects"   class="text-muted hover:text-white transition-colors">Projects</a>
+        <a href="/#tech-stack" class="text-muted hover:text-white transition-colors">Tech Stack</a>
+        <a href="/reports"     class="text-muted hover:text-white transition-colors">Reports</a>
+        <a href="/resume"      class="text-white transition-colors">Resume</a>
+        <a href="https://github.com/itsF4LCON" target="_blank" class="text-muted hover:text-white transition-colors">GitHub</a>
+      </nav>
+
+      <div class="flex items-center space-x-2 text-[10px] font-mono tracking-widest text-muted">
+        <span class="w-1.5 h-1.5 bg-muted rounded-full"></span>
+        <span>BE</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 pt-16 pb-20 w-full flex-grow">
+
+    <div class="no-print flex flex-wrap items-center justify-between gap-4 mb-8">
+      <a href="/" class="inline-flex items-center space-x-2 text-xs font-mono text-muted hover:text-heading transition-colors">
+        <i data-lucide="arrow-left" class="w-3 h-3"></i>
+        <span>Back to portfolio</span>
+      </a>
+      <button type="button" onclick="window.print()"
+        class="inline-flex items-center space-x-2 bg-heading text-white hover:bg-body px-5 py-2.5 text-xs font-mono font-medium transition-colors">
+        <i data-lucide="download" class="w-3 h-3"></i>
+        <span>Download PDF</span>
+      </button>
+    </div>
+
+    <article class="sheet border border-border bg-card p-8 sm:p-12 space-y-10">
+
+      <section class="space-y-3">
+        <h1 class="text-4xl sm:text-5xl font-medium text-heading tracking-tight">F4LCON</h1>
+        <p class="text-lg text-body font-light">Student developer from Belgium, building security and privacy tools with Rust and Cloudflare.</p>
+        <p class="text-xs font-mono text-muted flex flex-wrap gap-x-5 gap-y-1">
+          <a href="mailto:rangeerts@gmail.com" class="hover:text-heading underline underline-offset-2">rangeerts@gmail.com</a>
+          <a href="https://xivlabs.tech" class="hover:text-heading underline underline-offset-2">xivlabs.tech</a>
+          <a href="https://github.com/itsF4LCON" class="hover:text-heading underline underline-offset-2">github.com/itsF4LCON</a>
+          <a href="https://pypi.org/user/itsF4LCON/" class="hover:text-heading underline underline-offset-2">pypi.org/user/itsF4LCON</a>
+        </p>
+      </section>
+
+      <section class="border-l-2 border-heading pl-4 space-y-1">
+        <h2 class="text-sm font-medium text-heading">Looking for</h2>
+        <p class="text-sm text-body">A security or privacy internship, ideally with Cloudflare's 1.1.1.1 team or the Anthropic Fellows Program.</p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-medium text-heading border-b border-heading pb-2">Projects</h2>
+
+        <div class="entry py-4">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+            <h3 class="font-medium text-heading"><a href="https://github.com/itsF4LCON/aps" class="print-url" data-url="github.com/itsF4LCON/aps">aps</a></h3>
+            <span class="text-xs font-mono text-muted">Rust, Cloudflare Workers, D1, KV, Workers AI</span>
+          </div>
+          <p class="text-sm text-body mt-1">Anti-phishing scanner that runs at the edge and gives a verdict on a URL in about 15 ms. Known domains are answered from a D1 threat cache, and new ones are classified with Workers AI. It has a public API with self-service keys and rate limiting.</p>
+        </div>
+
+        <div class="entry py-4">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+            <h3 class="font-medium text-heading"><a href="https://github.com/itsF4LCON/hive" class="print-url" data-url="github.com/itsF4LCON/hive">hive</a> and <a href="https://github.com/itsF4LCON/hive-blocklist" class="print-url" data-url="github.com/itsF4LCON/hive-blocklist">hive-blocklist</a></h3>
+            <span class="text-xs font-mono text-muted">Rust, Python, Cloudflare Workers, GitHub Actions</span>
+          </div>
+          <p class="text-sm text-body mt-1">Low-interaction SSH and HTTP honeypot that records every login attempt and probe without ever letting anyone in. A Cloudflare Worker feeds a live attack map and weekly public reports. GitHub Actions rebuilds a free blocklist every week in iptables, nginx and plain-text formats.</p>
+        </div>
+
+        <div class="entry py-4">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+            <h3 class="font-medium text-heading"><a href="https://github.com/itsF4LCON/postburn" class="print-url" data-url="github.com/itsF4LCON/postburn">postburn</a></h3>
+            <span class="text-xs font-mono text-muted">Rust, Durable Objects, WebCrypto</span>
+          </div>
+          <p class="text-sm text-body mt-1">One-time secret links. The browser encrypts with AES-256-GCM, and the key stays in the URL fragment, so the server never sees it. Each secret lives in its own Durable Object and is deleted in the same step it is read, so it can be read once even when requests race. No server-side logs.</p>
+        </div>
+
+        <div class="entry py-4">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+            <h3 class="font-medium text-heading"><a href="https://github.com/itsF4LCON/desk" class="print-url" data-url="github.com/itsF4LCON/desk">desk</a></h3>
+            <span class="text-xs font-mono text-muted">Rust, WebRTC, Cloudflare Tunnel and Access</span>
+          </div>
+          <p class="text-sm text-body mt-1">Self-hosted remote desktop for Linux in any browser: 1080p60 hardware-encoded H.264 over WebRTC, behind Cloudflare Tunnel and Access, with a password and TOTP.</p>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-sm font-medium text-heading border-b border-heading pb-2">Skills</h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-x-6 gap-y-2 text-sm">
+          <dt class="text-muted">Languages</dt>
+          <dd class="text-body">Rust, Python, JavaScript, Swift, C#, GDScript</dd>
+          <dt class="text-muted">Edge and infra</dt>
+          <dd class="text-body">Cloudflare Workers, Durable Objects, D1, KV, Workers AI, Tunnel, Access, Linux servers</dd>
+          <dt class="text-muted">Security</dt>
+          <dd class="text-body">Honeypots, threat intelligence, phishing detection, applied cryptography, OSINT</dd>
+          <dt class="text-muted">Web</dt>
+          <dd class="text-body">HTML, CSS, Tailwind CSS, WebRTC, browser extensions</dd>
+          <dt class="text-muted">Other</dt>
+          <dd class="text-body">Computer vision with OpenCV and MediaPipe</dd>
+        </dl>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-sm font-medium text-heading border-b border-heading pb-2">Languages</h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-x-6 gap-y-2 text-sm">
+          <dt class="text-muted">Dutch</dt>
+          <dd class="text-body">Native</dd>
+          <dt class="text-muted">English</dt>
+          <dd class="text-body">Fluent</dd>
+        </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <footer class="border-t border-border bg-surface py-8">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-muted gap-4">
+      <div>
+        <span>XIV LABS &copy; 2026 / itsF4LCON</span>
+      </div>
+      <div class="flex space-x-6">
+        <a href="https://github.com/itsF4LCON" class="hover:text-heading transition-colors">GitHub</a>
+        <a href="https://pypi.org/user/itsF4LCON/" class="hover:text-heading transition-colors">Pypi</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    if (window.lucide) lucide.createIcons();
+  </script>
+</body>
+</html>
