@@ -20,6 +20,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/d3-array@3/dist/d3-array.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/d3-geo@3/dist/d3-geo.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -74,6 +77,18 @@
             border-color: #000000;
         }
 
+        .hive-ping {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: hive-ping 1.6s ease-out 3;
+        }
+        @keyframes hive-ping {
+            from { transform: scale(1); opacity: 0.9; }
+            to { transform: scale(4); opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hive-ping { animation: none; opacity: 0; }
+        }
         .dark-surface {
             background-color: #000000;
             color: #ffffff;
@@ -118,6 +133,7 @@
                 <a href="#about" class="text-muted hover:text-heading transition-colors">About</a>
                 <a href="#projects" class="text-muted hover:text-heading transition-colors">Projects</a>
                 <a href="#tech-stack" class="text-muted hover:text-heading transition-colors">Tech Stack</a>
+                <a href="#attacks" class="text-muted hover:text-heading transition-colors">Attacks</a>
                 <a href="#activity" class="text-muted hover:text-heading transition-colors">Activity</a>
                 <a href="https://github.com/itsF4LCON" target="_blank" class="text-muted hover:text-heading transition-colors">GitHub</a>
             </nav>
@@ -293,6 +309,64 @@
             </div>
         </section>
 
+        <section id="attacks" class="space-y-8">
+            <div class="flex items-center justify-between border-b border-border pb-4">
+                <h2 class="text-lg font-medium text-heading">Live Attack Map</h2>
+                <a href="https://github.com/itsF4LCON/hive" target="_blank" class="text-xs font-mono text-muted hover:text-heading transition-colors">hive · honeypot</a>
+            </div>
+
+            <p class="text-sm text-body font-light max-w-2xl">
+                A decoy SSH and web server that bots find on their own. Every login attempt and probe it receives shows up here, live. Nothing is ever let in.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div class="lg:col-span-2 border border-border bg-black dark-surface p-4 relative">
+                    <svg id="hiveMap" viewBox="0 0 960 500" class="w-full h-auto block" role="img" aria-label="World map of attack sources in the last 24 hours"></svg>
+                    <div id="hiveMapNote" class="absolute bottom-3 left-4 text-[10px] font-mono text-muted uppercase tracking-wider">Sources · last 24h</div>
+                </div>
+
+                <div class="grid grid-cols-3 lg:grid-cols-1 gap-4">
+                    <div class="border border-border bg-surface p-4">
+                        <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-1">Attempts · 24h</div>
+                        <div id="hiveTotal" class="text-2xl font-medium text-heading font-mono">–</div>
+                    </div>
+                    <div class="border border-border bg-surface p-4">
+                        <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-1">Sources · 24h</div>
+                        <div id="hiveSources" class="text-2xl font-medium text-heading font-mono">–</div>
+                    </div>
+                    <div class="border border-border bg-surface p-4">
+                        <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-1">Top country · 7d</div>
+                        <div id="hiveCountry" class="text-2xl font-medium text-heading font-mono">–</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+                <div class="border border-border bg-surface p-4 md:col-span-1">
+                    <h3 class="text-[10px] text-muted uppercase tracking-wider mb-3">Top passwords · 7d</h3>
+                    <ol id="hivePasswords" class="space-y-1.5"><li class="text-muted">–</li></ol>
+                </div>
+                <div class="border border-border bg-surface p-4 md:col-span-1">
+                    <h3 class="text-[10px] text-muted uppercase tracking-wider mb-3">Top probed paths · 7d</h3>
+                    <ol id="hivePaths" class="space-y-1.5"><li class="text-muted">–</li></ol>
+                </div>
+                <div class="border border-border bg-surface p-4 md:col-span-1">
+                    <h3 class="text-[10px] text-muted uppercase tracking-wider mb-3">Top usernames · 7d</h3>
+                    <ol id="hiveUsers" class="space-y-1.5"><li class="text-muted">–</li></ol>
+                </div>
+            </div>
+
+            <div class="p-6 border border-border bg-surface font-mono text-xs overflow-hidden min-h-[160px]">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-[10px] text-muted uppercase tracking-wider">Live feed</span>
+                    <span id="hiveStatus" class="text-[10px] text-muted uppercase tracking-wider">Connecting...</span>
+                </div>
+                <div id="hiveFeed" class="space-y-2">
+                    <div class="text-muted animate-pulse">Waiting for the first attackers...</div>
+                </div>
+            </div>
+        </section>
+
         <section id="activity" class="space-y-8">
             <div class="flex items-center justify-between border-b border-border pb-4">
                 <h2 class="text-lg font-medium text-heading">Live GitHub Activity</h2>
@@ -326,6 +400,7 @@
         try { lucide.createIcons(); } catch (e) { console.error('Lucide failed to load:', e); }
         fetchGitHubActivity();
         setupApsDemo();
+        setupHive();
     });
 
     function setupApsDemo() {
@@ -524,6 +599,141 @@
             <div class="text-muted border border-border px-4 py-3 bg-card inline-block">
                 ${code}: ${message}
             </div>`;
+    }
+
+    // ---- hive: live honeypot map -------------------------------------------------------------
+    // Everything shown here comes from attackers (usernames, passwords, paths), so every string
+    // goes through escapeHTML() or textContent before it reaches the page.
+    const HIVE_API = (['localhost', '127.0.0.1'].includes(location.hostname)
+        && new URLSearchParams(location.search).get('hive')) || 'https://hive.xivlabs.tech';
+    const hiveSeen = new Set();
+    let hiveProjection = null;
+
+    async function setupHive() {
+        if (!document.getElementById('hiveMap')) return;
+        await drawHiveMap();
+        refreshHiveStats();
+        refreshHiveFeed();
+        setInterval(refreshHiveFeed, 15000);
+        setInterval(refreshHiveStats, 60000);
+    }
+
+    async function drawHiveMap() {
+        const svg = document.getElementById('hiveMap');
+        try {
+            // The map scripts are deferred; wait for them rather than racing DOMContentLoaded.
+            for (let i = 0; i < 50 && !(window.d3 && d3.geoPath && window.topojson); i++) {
+                await new Promise(r => setTimeout(r, 100));
+            }
+            const world = await (await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')).json();
+            hiveProjection = d3.geoNaturalEarth1().fitSize([960, 500], { type: 'Sphere' });
+            const path = d3.geoPath(hiveProjection);
+            const land = topojson.feature(world, world.objects.countries);
+            const borders = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
+            svg.innerHTML = `
+                <path d="${path({ type: 'Sphere' })}" fill="#0c0a09" stroke="#292524"/>
+                <path d="${path(land)}" fill="#292524"/>
+                <path d="${path(borders)}" fill="none" stroke="#0c0a09" stroke-width="0.5"/>
+                <g id="hivePoints"></g>
+                <g id="hivePings"></g>`;
+        } catch (e) {
+            console.error('hive map failed:', e);
+            document.getElementById('hiveMapNote').textContent = 'Map unavailable';
+        }
+    }
+
+    function hiveXY(lon, lat) {
+        if (!hiveProjection || lon == null || lat == null) return null;
+        const p = hiveProjection([lon, lat]);
+        return p && isFinite(p[0]) && isFinite(p[1]) ? p : null;
+    }
+
+    function hiveList(id, rows, fmt) {
+        const el = document.getElementById(id);
+        if (!rows || rows.length === 0) {
+            el.innerHTML = '<li class="text-muted">Nothing yet</li>';
+            return;
+        }
+        el.innerHTML = rows.map(r => `
+            <li class="flex justify-between gap-4">
+                <span class="text-heading truncate">${escapeHTML(fmt ? fmt(r.k) : r.k)}</span>
+                <span class="text-muted shrink-0">${Number(r.n).toLocaleString()}</span>
+            </li>`).join('');
+    }
+
+    async function refreshHiveStats() {
+        try {
+            const res = await fetch(`${HIVE_API}/stats`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const s = await res.json();
+            document.getElementById('hiveTotal').textContent = Number(s.total_24h).toLocaleString();
+            document.getElementById('hiveSources').textContent = Number(s.unique_sources_24h).toLocaleString();
+            document.getElementById('hiveCountry').textContent = (s.top_countries[0] && s.top_countries[0].k) || '–';
+            hiveList('hivePasswords', s.top_passwords);
+            hiveList('hivePaths', s.top_paths);
+            hiveList('hiveUsers', s.top_usernames);
+
+            const g = document.getElementById('hivePoints');
+            if (g) {
+                const max = Math.max(1, ...s.points_24h.map(p => p.n));
+                g.innerHTML = s.points_24h.map(p => {
+                    const xy = hiveXY(p.lon, p.lat);
+                    if (!xy) return '';
+                    const radius = 2 + 6 * Math.sqrt(p.n / max);
+                    return `<circle cx="${xy[0].toFixed(1)}" cy="${xy[1].toFixed(1)}" r="${radius.toFixed(1)}" fill="#ef4444" fill-opacity="0.55"><title>${Number(p.n)} hits</title></circle>`;
+                }).join('');
+            }
+        } catch (e) {
+            console.error('hive stats failed:', e);
+        }
+    }
+
+    async function refreshHiveFeed() {
+        const feed = document.getElementById('hiveFeed');
+        const status = document.getElementById('hiveStatus');
+        try {
+            const res = await fetch(`${HIVE_API}/recent?limit=12`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const events = await res.json();
+            status.textContent = 'Live · updates every 15s';
+
+            if (events.length === 0) {
+                feed.innerHTML = '<div class="text-muted">Waiting for the first attackers...</div>';
+                return;
+            }
+
+            const pings = document.getElementById('hivePings');
+            const firstLoad = hiveSeen.size === 0;
+            feed.innerHTML = events.map(e => {
+                const key = `${e.ts}|${e.ip_masked}|${e.username}|${e.password}|${e.path}`;
+                const isNew = !hiveSeen.has(key);
+                hiveSeen.add(key);
+                if (isNew && !firstLoad && pings) {
+                    const xy = hiveXY(e.lon, e.lat);
+                    if (xy) {
+                        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        c.setAttribute('cx', xy[0]); c.setAttribute('cy', xy[1]); c.setAttribute('r', 4);
+                        c.setAttribute('fill', 'none'); c.setAttribute('stroke', '#ef4444'); c.setAttribute('stroke-width', 1.5);
+                        c.classList.add('hive-ping');
+                        pings.appendChild(c);
+                        setTimeout(() => c.remove(), 5000);
+                    }
+                }
+                const what = e.service === 'ssh'
+                    ? `<span class="text-muted">SSH</span> ${escapeHTML(e.username)} <span class="text-muted">/</span> ${escapeHTML(e.password)}`
+                    : `<span class="text-muted">HTTP</span> ${escapeHTML(e.method)} ${escapeHTML(e.path)}`;
+                const when = timeSince(new Date(Math.min(e.ts * 1000, Date.now())));
+                return `
+                    <div class="flex justify-between items-start gap-4 border-l-2 ${isNew && !firstLoad ? 'border-red-500' : 'border-border'} pl-3 py-0.5">
+                        <div class="text-heading truncate">${what}</div>
+                        <div class="text-muted shrink-0 text-[10px] uppercase tracking-wider">${escapeHTML(e.country || '??')} · ${when}</div>
+                    </div>`;
+            }).join('');
+            if (hiveSeen.size > 2000) hiveSeen.clear();
+        } catch (e) {
+            console.error('hive feed failed:', e);
+            status.textContent = 'Offline';
+        }
     }
 
     function escapeHTML(str) {
