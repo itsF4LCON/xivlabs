@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XIV Labs</title>
+    <meta name="description" content="F4LCON — student developer from Belgium building security tools: an edge anti-phishing scanner, OSINT recon, and a self-hosted browser remote desktop.">
+    <meta name="theme-color" content="#edeae2">
+    <link rel="canonical" href="https://xivlabs.tech/">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='30' font-weight='700' fill='%23edeae2' text-anchor='middle'%3EF4%3C/text%3E%3C/svg%3E">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="XIV Labs">
+    <meta property="og:title" content="F4LCON / XIV Labs">
+    <meta property="og:description" content="Security tools and experiments by F4LCON: edge anti-phishing, OSINT recon, self-hosted remote desktop.">
+    <meta property="og:url" content="https://xivlabs.tech/">
+    <meta property="og:image" content="https://github.com/itsF4LCON.png?size=400">
+    <meta name="twitter:card" content="summary">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -163,6 +174,18 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="https://github.com/itsF4LCON/desk" target="_blank" class="block p-6 border border-border bg-black dark-surface interactive-element group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-muted group-hover:text-heading transition-colors"></i>
+                    </div>
+                    <h3 class="text-base font-medium text-heading mb-2">desk</h3>
+                    <p class="text-sm text-body font-light mb-6">
+                        Self-hosted remote desktop for Linux in any browser: 1080p60 hardware-encoded H.264 over WebRTC, behind Cloudflare Tunnel + Access, a password and TOTP.
+                    </p>
+                    <div class="text-[10px] font-mono text-muted">Remote Access</div>
+                </a>
+
                 <a href="https://github.com/itsF4LCON/HandOfGod" target="_blank" class="block p-6 border border-border bg-black dark-surface interactive-element group">
                     <div class="flex items-center justify-between mb-4">
                         <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Python</span>
@@ -202,24 +225,27 @@
                         <a href="/aps-api" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">Get API Key</a>
                     </div>
                 </div>
+            </div>
 
-                <a href="https://github.com/itsF4LCON/Waller" target="_blank" class="block p-6 border border-border bg-black dark-surface interactive-element group">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Swift</span>
-                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-muted group-hover:text-heading transition-colors"></i>
-                    </div>
-                    <h3 class="text-base font-medium text-heading mb-2">Waller</h3>
-                    <p class="text-sm text-body font-light mb-6">
-                        MDM bypassable wallpaper changer for locked macbooks, allowing users to customize their desktop background without administrative privileges. 
-                    </p>
-                    <div class="text-[10px] font-mono text-muted">Utility</div>
-                </a>
+            <div id="aps-demo" class="p-6 border border-border bg-surface space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-medium text-heading">Try aps live</h3>
+                    <span class="text-[10px] font-mono text-muted uppercase tracking-wider">api.xivlabs.tech/scan</span>
+                </div>
+                <p class="text-sm text-body font-light">Paste a link and aps will check its domain against the threat cache, or classify it at the edge with Workers AI.</p>
+                <form id="apsDemoForm" class="flex flex-col sm:flex-row gap-2">
+                    <input id="apsDemoInput" type="text" inputmode="url" autocomplete="off" spellcheck="false" required maxlength="2048"
+                           placeholder="https://paypa1-login.com/verify"
+                           class="flex-1 min-w-0 border border-border bg-card px-3 py-2.5 text-xs font-mono text-heading placeholder:text-muted focus:outline-none focus:border-borderHover">
+                    <button id="apsDemoBtn" type="submit" class="bg-heading text-white hover:bg-body px-5 py-2.5 text-xs font-mono font-medium transition-colors disabled:opacity-50">Scan</button>
+                </form>
+                <div id="apsDemoResult" class="hidden border px-4 py-3 font-mono text-xs" aria-live="polite"></div>
             </div>
 
             <div id="tech-stack" class="border-t border-border pt-8">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-sm font-medium text-heading">Tech Stack</h3>
-                    <span class="text-xs font-mono text-muted">15</span>
+                    <span class="text-xs font-mono text-muted">21</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="space-y-3">
@@ -239,6 +265,8 @@
                             <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">HTML</span>
                             <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">CSS</span>
                             <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">Tailwind CSS</span>
+                            <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">WebRTC</span>
+                            <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">Browser Extensions</span>
                         </div>
                     </div>
                     <div class="space-y-3">
@@ -252,6 +280,10 @@
                         <h4 class="text-[10px] font-mono text-muted uppercase tracking-wider">Security & Infrastructure</h4>
                         <div class="grid grid-cols-1 gap-2">
                             <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">Cloudflare Workers</span>
+                            <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">Cloudflare Tunnel</span>
+                            <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">Cloudflare Access</span>
+                            <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">Workers AI</span>
+                            <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">D1 / KV</span>
                             <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">SQLite</span>
                             <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">OSINT</span>
                             <span class="flex h-10 items-center justify-center border border-border bg-black dark-surface px-3 text-center text-xs font-mono text-heading">Reconnaissance</span>
@@ -293,7 +325,68 @@
         // Don't let an icon CDN failure block the activity feed
         try { lucide.createIcons(); } catch (e) { console.error('Lucide failed to load:', e); }
         fetchGitHubActivity();
+        setupApsDemo();
     });
+
+    function setupApsDemo() {
+        const form = document.getElementById('apsDemoForm');
+        if (!form) return;
+        const input = document.getElementById('apsDemoInput');
+        const btn = document.getElementById('apsDemoBtn');
+        const out = document.getElementById('apsDemoResult');
+
+        const show = (tone, label, detail) => {
+            const tones = {
+                safe: 'border-emerald-700 text-emerald-800 bg-emerald-50',
+                blocked: 'border-red-700 text-red-800 bg-red-50',
+                info: 'border-border text-muted bg-card'
+            };
+            out.className = `border px-4 py-3 font-mono text-xs ${tones[tone]}`;
+            out.textContent = '';
+            const strong = document.createElement('div');
+            strong.className = 'font-medium mb-1';
+            strong.textContent = label;
+            const p = document.createElement('div');
+            p.className = 'opacity-80 break-words';
+            p.textContent = detail;
+            out.append(strong, p);
+        };
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            let url = input.value.trim();
+            if (!url) return;
+            if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+            btn.disabled = true;
+            btn.textContent = 'Scanning...';
+            const started = performance.now();
+            try {
+                const res = await fetch('https://api.xivlabs.tech/scan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+                const ms = Math.round(performance.now() - started);
+                if (res.ok) {
+                    const data = await res.json();
+                    show(data.blocked ? 'blocked' : 'safe',
+                        `${data.blocked ? 'BLOCKED' : 'SAFE'} · ${ms}ms round trip`,
+                        data.reason || '');
+                } else if (res.status === 429) {
+                    show('info', 'RATE LIMITED', 'The demo allows 5 scans per minute. Try again shortly, or get a free API key for more.');
+                } else {
+                    show('info', `ERROR ${res.status}`, (await res.text()) || 'The scanner rejected this request.');
+                }
+            } catch (err) {
+                console.error('aps demo error:', err);
+                show('info', 'ERR_CONNECTION', 'Could not reach the aps API.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Scan';
+            }
+        });
+    }
 
     async function fetchGitHubActivity() {
         const feedContainer = document.getElementById('githubActivityFeed');
