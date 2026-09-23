@@ -494,55 +494,87 @@
         });
     }
 
+    const ACTIVITY_CACHE_KEY = 'gh-activity-v1';
+    const ACTIVITY_TTL_MS = 10 * 60 * 1000;
+
+    class RateLimited extends Error {}
+
+    function readActivityCache() {
+        try {
+            const c = JSON.parse(localStorage.getItem(ACTIVITY_CACHE_KEY));
+            return c && Array.isArray(c.items) ? c : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function writeActivityCache(items) {
+        try {
+            localStorage.setItem(ACTIVITY_CACHE_KEY, JSON.stringify({ at: Date.now(), items }));
+        } catch (e) {}
+    }
+
+    function renderActivity(container, items) {
+        container.innerHTML = '';
+        items.forEach(item => appendFeedItem(container, item.repoName, item.message, timeSince(new Date(item.date))));
+    }
+
     async function fetchGitHubActivity() {
         const feedContainer = document.getElementById('githubActivityFeed');
         if (!feedContainer) return;
 
-        const username = 'itsF4LCON';
+        const cached = readActivityCache();
+        if (cached && Date.now() - cached.at < ACTIVITY_TTL_MS) {
+            renderActivity(feedContainer, cached.items);
+            return;
+        }
 
         try {
-            const eventsRes = await fetch(`https://api.github.com/users/${username}/events/public`);
-            
-            if (eventsRes.status === 403 || eventsRes.status === 429) {
-                renderError(feedContainer, 'ERR_RATE_LIMIT', 'GitHub API rate limit reached. Please try again later.');
-                return;
+            const items = await loadGitHubActivity('itsF4LCON');
+            if (items.length > 0) {
+                writeActivityCache(items);
+                renderActivity(feedContainer, items);
+            } else if (cached) {
+                renderActivity(feedContainer, cached.items);
+            } else {
+                feedContainer.innerHTML = '<div class="text-muted">No public activity found on GitHub.</div>';
             }
-
-            if (eventsRes.ok) {
-                const events = await eventsRes.json();
-                const pushEvents = Array.isArray(events)
-                    ? events
-                        .filter(e => e.type === 'PushEvent')
-                        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-                        .slice(0, 6)
-                    : [];
-
-                if (pushEvents.length > 0) {
-                    await renderPushEvents(feedContainer, pushEvents);
-                    return;
-                }
-            }
-
-            const reposRes = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=5`);
-            
-            if (reposRes.ok) {
-                const repos = await reposRes.json();
-                if (Array.isArray(repos) && repos.length > 0) {
-                    await renderRecentCommitsFromRepos(feedContainer, repos);
-                    return;
-                }
-            }
-
-            feedContainer.innerHTML = '<div class="text-muted">No public activity found on GitHub.</div>';
-
         } catch (error) {
-            console.error('GitHub Fetch Error:', error);
-            renderError(feedContainer, 'ERR_CONNECTION', 'Unable to fetch activity stream from GitHub API.');
+            if (cached) {
+                renderActivity(feedContainer, cached.items);
+            } else if (error instanceof RateLimited) {
+                renderError(feedContainer, 'ERR_RATE_LIMIT', 'GitHub API rate limit reached. Please try again later.');
+            } else {
+                console.error('GitHub Fetch Error:', error);
+                renderError(feedContainer, 'ERR_CONNECTION', 'Unable to fetch activity stream from GitHub API.');
+            }
         }
     }
 
-    async function renderPushEvents(container, events) {
-        const items = await Promise.all(events.map(async (event) => {
+    async function loadGitHubActivity(username) {
+        const eventsRes = await fetch(`https://api.github.com/users/${username}/events/public`);
+        if (eventsRes.status === 403 || eventsRes.status === 429) throw new RateLimited();
+
+        if (eventsRes.ok) {
+            const events = await eventsRes.json();
+            const pushEvents = Array.isArray(events)
+                ? events
+                    .filter(e => e.type === 'PushEvent')
+                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                    .slice(0, 6)
+                : [];
+            if (pushEvents.length > 0) return loadPushEvents(pushEvents);
+        }
+
+        const reposRes = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=5`);
+        if (reposRes.status === 403 || reposRes.status === 429) throw new RateLimited();
+        if (!reposRes.ok) return [];
+        const repos = await reposRes.json();
+        return Array.isArray(repos) ? loadRecentCommitsFromRepos(repos) : [];
+    }
+
+    async function loadPushEvents(events) {
+        return Promise.all(events.map(async (event) => {
             const repoName = event.repo ? event.repo.name : 'Unknown Repository';
             const payload = event.payload || {};
             const branch = (payload.ref || '').replace('refs/heads/', '');
@@ -563,18 +595,13 @@
             return {
                 repoName,
                 message: commitMsg ? commitMsg.split('\n')[0] : `Pushed to ${branch || 'repository'}`,
-                timeAgo: timeSince(new Date(event.created_at))
+                date: event.created_at
             };
         }));
-
-        container.innerHTML = '';
-        items.forEach(item => appendFeedItem(container, item.repoName, item.message, item.timeAgo));
     }
 
-    async function renderRecentCommitsFromRepos(container, repos) {
-        container.innerHTML = '';
-        
-        const commitPromises = repos.map(async (repo) => {
+    async function loadRecentCommitsFromRepos(repos) {
+        const results = await Promise.all(repos.map(async (repo) => {
             try {
                 const res = await fetch(`https://api.github.com/repos/${repo.full_name}/commits?per_page=1`);
                 if (!res.ok) return null;
@@ -582,28 +609,14 @@
                 if (Array.isArray(commits) && commits.length > 0) {
                     return {
                         repoName: repo.full_name,
-                        message: commits[0].commit.message,
-                        date: new Date(commits[0].commit.committer.date)
+                        message: commits[0].commit.message.split('\n')[0],
+                        date: commits[0].commit.committer.date
                     };
                 }
-            } catch (e) {
-                return null;
-            }
+            } catch (e) {}
             return null;
-        });
-
-        const results = (await Promise.all(commitPromises)).filter(Boolean);
-        
-        results.sort((a, b) => b.date - a.date);
-
-        if (results.length === 0) {
-            container.innerHTML = '<div class="text-muted">No recent commit history retrieved.</div>';
-            return;
-        }
-
-        results.forEach(item => {
-            appendFeedItem(container, item.repoName, item.message, timeSince(item.date));
-        });
+        }));
+        return results.filter(Boolean).sort((a, b) => new Date(b.date) - new Date(a.date));
     }
 
     function appendFeedItem(container, repoName, description, timeAgo) {
