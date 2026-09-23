@@ -186,7 +186,7 @@
         <section id="projects" class="space-y-8">
             <div class="flex items-center justify-between border-b border-border pb-4">
                 <h2 class="text-lg font-medium text-heading">Pinned Repositories</h2>
-                <span class="text-xs font-mono text-muted">04</span>
+                <span class="text-xs font-mono text-muted">05</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -239,6 +239,22 @@
                     <div class="flex items-center justify-between">
                         <div class="text-[10px] font-mono text-muted">Threat Intelligence</div>
                         <a href="/aps-api" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">Get API Key</a>
+                    </div>
+                </div>
+
+                <div class="relative block p-6 border border-border bg-black dark-surface interactive-element group md:col-span-2">
+                    <a href="https://github.com/itsF4LCON/hive" target="_blank" class="absolute inset-0" aria-label="hive on GitHub"></a>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-muted group-hover:text-heading transition-colors"></i>
+                    </div>
+                    <h3 class="text-base font-medium text-heading mb-2">hive</h3>
+                    <p class="text-sm text-body font-light mb-6">
+                        Low-interaction SSH and HTTP honeypot that records every login attempt and probe without ever letting anyone in, feeding a live attack map through a Cloudflare Worker.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="text-[10px] font-mono text-muted">Threat Intelligence</div>
+                        <a href="#attacks" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">See live map</a>
                     </div>
                 </div>
             </div>
@@ -315,9 +331,15 @@
                 <a href="https://github.com/itsF4LCON/hive" target="_blank" class="text-xs font-mono text-muted hover:text-heading transition-colors">hive · honeypot</a>
             </div>
 
-            <p class="text-sm text-body font-light max-w-2xl">
-                A decoy SSH and web server that bots find on their own. Every login attempt and probe it receives shows up here, live. Nothing is ever let in.
-            </p>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <p class="text-sm text-body font-light max-w-2xl">
+                    A decoy SSH and web server that bots find on their own. Every login attempt and probe it receives shows up here, live. Nothing is ever let in.
+                </p>
+                <a href="https://github.com/itsF4LCON/hive" target="_blank" class="inline-flex items-center justify-center space-x-2 bg-heading text-white hover:bg-body px-5 py-2.5 text-xs font-mono font-medium transition-colors shrink-0">
+                    <span>View source on GitHub</span>
+                    <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                </a>
+            </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 <div class="lg:col-span-2 border border-border bg-black dark-surface p-4 relative">
