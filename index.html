@@ -419,7 +419,6 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Don't let an icon CDN failure block the activity feed
         try { lucide.createIcons(); } catch (e) { console.error('Lucide failed to load:', e); }
         fetchGitHubActivity();
         setupApsDemo();
@@ -493,7 +492,6 @@
         const username = 'itsF4LCON';
 
         try {
-            // 1. Check event stream
             const eventsRes = await fetch(`https://api.github.com/users/${username}/events/public`);
             
             if (eventsRes.status === 403 || eventsRes.status === 429) {
@@ -516,7 +514,6 @@
                 }
             }
 
-            // 2. Fallback: Fetch recently updated repositories and pull latest commit messages
             const reposRes = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=5`);
             
             if (reposRes.ok) {
@@ -535,8 +532,6 @@
         }
     }
 
-    // GitHub no longer includes payload.commits in PushEvents, so look up the
-    // head commit's message separately.
     async function renderPushEvents(container, events) {
         const items = await Promise.all(events.map(async (event) => {
             const repoName = event.repo ? event.repo.name : 'Unknown Repository';
@@ -553,7 +548,7 @@
                         const commit = await res.json();
                         commitMsg = commit.commit && commit.commit.message;
                     }
-                } catch (e) { /* fall through to generic message */ }
+                } catch (e) {}
             }
 
             return {
@@ -570,7 +565,6 @@
     async function renderRecentCommitsFromRepos(container, repos) {
         container.innerHTML = '';
         
-        // Query recent commits across updated repos in parallel
         const commitPromises = repos.map(async (repo) => {
             try {
                 const res = await fetch(`https://api.github.com/repos/${repo.full_name}/commits?per_page=1`);
@@ -591,7 +585,6 @@
 
         const results = (await Promise.all(commitPromises)).filter(Boolean);
         
-        // Sort by commit date descending
         results.sort((a, b) => b.date - a.date);
 
         if (results.length === 0) {
@@ -624,9 +617,7 @@
             </div>`;
     }
 
-    // ---- hive: live honeypot map -------------------------------------------------------------
-    // Everything shown here comes from attackers (usernames, passwords, paths), so every string
-    // goes through escapeHTML() or textContent before it reaches the page.
+    // Attacker-controlled data: render every string with escapeHTML() or textContent.
     const HIVE_API = (['localhost', '127.0.0.1'].includes(location.hostname)
         && new URLSearchParams(location.search).get('hive')) || 'https://hive.xivlabs.tech';
     const hiveSeen = new Set();
@@ -644,7 +635,6 @@
     async function drawHiveMap() {
         const svg = document.getElementById('hiveMap');
         try {
-            // The map scripts are deferred; wait for them rather than racing DOMContentLoaded.
             for (let i = 0; i < 50 && !(window.d3 && d3.geoPath && window.topojson); i++) {
                 await new Promise(r => setTimeout(r, 100));
             }

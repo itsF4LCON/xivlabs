@@ -50,7 +50,6 @@
     .dark-surface { background-color: #000000; color: #ffffff; }
     .dark-surface .text-muted { color: #a8a29e; }
 
-    /* Code block */
     pre {
       background: #000;
       color: #e5e7eb;
@@ -65,7 +64,6 @@
     .token-bool  { color: #fca5a5; }
     .token-num   { color: #fde68a; }
 
-    /* Key reveal box */
     #key-box {
       background: #000;
       border: 1px solid #333;
@@ -327,7 +325,7 @@ const { blocked, reason } = await res.json();</pre>
           generateLabel.textContent = 'Generate Key';
         } finally {
           generateBtn.disabled = false;
-          lucide.createIcons(); // re-render icons after DOM update
+          lucide.createIcons();
         }
       });
 
@@ -339,7 +337,6 @@ const { blocked, reason } = await res.json();</pre>
           icon.textContent = 'Copied!';
           setTimeout(() => { icon.textContent = 'Copy Key'; }, 2000);
         } catch {
-          // fallback for non-secure contexts
           const ta = document.createElement('textarea');
           ta.value = currentKey;
           document.body.appendChild(ta);
