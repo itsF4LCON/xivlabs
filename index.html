@@ -614,7 +614,7 @@
         await drawHiveMap();
         refreshHiveStats();
         refreshHiveFeed();
-        setInterval(refreshHiveFeed, 15000);
+        setInterval(refreshHiveFeed, 30000);
         setInterval(refreshHiveStats, 60000);
     }
 
@@ -695,7 +695,7 @@
             const res = await fetch(`${HIVE_API}/recent?limit=12`);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const events = await res.json();
-            status.textContent = 'Live · updates every 15s';
+            status.textContent = 'Live · updates every minute';
 
             if (events.length === 0) {
                 feed.innerHTML = '<div class="text-muted">Waiting for the first attackers...</div>';
