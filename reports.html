@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hive Weekly Reports — XIV Labs</title>
+  <meta name="description" content="Weekly reports and a free blocklist from the hive honeypot.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            surface: '#f5f1e8',
+            card: '#fffaf0',
+            border: '#c8c0b3',
+            borderHover: '#000000',
+            heading: '#000000',
+            body: '#24211d',
+            muted: '#5d574e',
+          },
+          fontFamily: {
+            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #edeae2;
+      color: #000000;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #000; }
+
+    .interactive-element { transition: all 0.2s ease; }
+    .interactive-element:hover { border-color: #000000; }
+
+    .dark-surface { background-color: #000000; color: #ffffff; }
+    .dark-surface .text-heading { color: #ffffff; }
+    .dark-surface .text-body { color: #d6d3d1; }
+    .dark-surface .text-muted { color: #a8a29e; }
+    .dark-surface .bg-muted { background-color: #a8a29e; }
+    .dark-surface .hover\:text-heading:hover,
+    .dark-surface.group:hover .group-hover\:text-heading { color: #ffffff; }
+
+    pre {
+      background: #000;
+      color: #e5e7eb;
+      padding: 1rem 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+    .up   { color: #b91c1c; }
+    .down { color: #15803d; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-black selection:text-white">
+
+  <header class="border-b border-border bg-black dark-surface sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center group">
+        <span class="font-mono text-xs font-medium tracking-wider text-white flex items-center gap-2">
+          F4LCON <span class="text-muted">/</span> xivlabs.tech
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-mono">
+        <a href="/#about"      class="text-muted hover:text-white transition-colors">About</a>
+        <a href="/#projects"   class="text-muted hover:text-white transition-colors">Projects</a>
+        <a href="/#attacks"    class="text-muted hover:text-white transition-colors">Attacks</a>
+        <a href="/reports"     class="text-white transition-colors">Reports</a>
+        <a href="/#activity"   class="text-muted hover:text-white transition-colors">Activity</a>
+        <a href="https://github.com/itsF4LCON" target="_blank" class="text-muted hover:text-white transition-colors">GitHub</a>
+      </nav>
+
+      <div class="flex items-center space-x-2 text-[10px] font-mono tracking-widest text-muted">
+        <span class="w-1.5 h-1.5 bg-muted rounded-full"></span>
+        <span>BE</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pt-24 pb-20 space-y-16 w-full flex-grow">
+
+    <section class="space-y-6">
+      <div class="inline-flex items-center border border-border px-3 py-1 text-[10px] font-mono text-muted uppercase tracking-wider">
+        Threat Intel
+      </div>
+      <div class="space-y-3 max-w-2xl">
+        <h1 class="text-4xl sm:text-5xl font-medium text-heading tracking-tight">hive weekly reports</h1>
+        <p class="text-lg leading-relaxed text-body font-light">
+          hive is a honeypot that pretends to be an SSH server and a forgotten nginx box. Every Monday it publishes
+          what hit it that week, along with a free blocklist of the addresses behind it.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-4 pt-2">
+        <a href="https://github.com/itsF4LCON/hive-blocklist" target="_blank"
+           class="inline-flex items-center space-x-2 bg-heading text-white hover:bg-body px-5 py-2.5 text-xs font-mono font-medium transition-colors">
+          <span>Get the Blocklist</span>
+          <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+        </a>
+        <a href="https://github.com/itsF4LCON/hive" target="_blank"
+           class="inline-flex items-center space-x-2 border border-border hover:border-borderHover text-heading px-5 py-2.5 text-xs font-mono transition-colors">
+          <span>How hive Works</span>
+          <i data-lucide="arrow-right" class="w-3 h-3"></i>
+        </a>
+      </div>
+    </section>
+
+    <section id="content" class="space-y-8" aria-live="polite">
+      <p class="text-xs font-mono text-muted">Loading reports…</p>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-border">
+    <div class="max-w-5xl mx-auto px-6 py-8 text-[10px] font-mono text-muted flex flex-wrap justify-between gap-4">
+      <span>Data from the hive honeypot. Lists expire 7 days after an address stops attacking.</span>
+      <a href="https://github.com/itsF4LCON/hive-blocklist/issues" target="_blank" class="hover:text-heading underline underline-offset-2">Listed by mistake?</a>
+    </div>
+  </footer>
+
+<script>
+  const RAW = 'https://raw.githubusercontent.com/itsF4LCON/hive-blocklist/main';
+  const params = new URLSearchParams(location.search);
+  const local = ['localhost', '127.0.0.1'].includes(location.hostname);
+  const BASE = (local && params.get('src')) || RAW;
+  const content = document.getElementById('content');
+
+  function el(tag, cls, text) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined && text !== null) e.textContent = text;
+    return e;
+  }
+
+  const fmt = n => Number(n || 0).toLocaleString('en-US');
+
+  function heading(title, right) {
+    const row = el('div', 'flex items-center justify-between border-b border-border pb-4');
+    row.append(el('h2', 'text-lg font-medium text-heading', title));
+    if (right) row.append(el('span', 'text-xs font-mono text-muted', right));
+    return row;
+  }
+
+  function weekPath(week) {
+    return /^\d{4}-W\d{2}$/.test(week) ? `${BASE}/reports/${week}.json` : null;
+  }
+
+  async function getJSON(url) {
+    const res = await fetch(url, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    return res.json();
+  }
+
+  function renderList(index) {
+    content.replaceChildren(heading('All reports', String(index.length).padStart(2, '0')));
+    if (!index.length) {
+      content.append(el('p', 'text-sm text-body font-light', 'The first report comes out next Monday.'));
+      return;
+    }
+    const grid = el('div', 'grid grid-cols-1 gap-4');
+    for (const w of index) {
+      const a = el('a', 'block p-6 border border-border bg-black dark-surface interactive-element group');
+      a.href = `?w=${encodeURIComponent(w.week)}`;
+      const top = el('div', 'flex items-center justify-between mb-4');
+      top.append(el('span', 'text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5', w.week));
+      top.append(el('span', 'text-[10px] font-mono text-muted', `${w.period_start} → ${w.period_end}`));
+      a.append(top);
+      a.append(el('h3', 'text-base font-medium text-heading mb-2', w.title));
+      a.append(el('p', 'text-sm text-body font-light mb-4', w.summary));
+      const foot = el('div', 'flex items-center gap-2 text-[10px] font-mono text-muted group-hover:text-heading transition-colors');
+      foot.append(el('span', null, 'Read report'));
+      const icon = el('i', 'w-3 h-3');
+      icon.setAttribute('data-lucide', 'arrow-right');
+      foot.append(icon);
+      a.append(foot);
+      grid.append(a);
+    }
+    content.append(grid);
+  }
+
+  function tile(label, value, sub, subClass) {
+    const t = el('div', 'border border-border p-4 space-y-1');
+    t.append(el('div', 'text-[10px] font-mono text-muted uppercase tracking-wider', label));
+    t.append(el('div', 'text-2xl font-medium text-heading', value));
+    if (sub) t.append(el('div', `text-[11px] font-mono ${subClass || 'text-muted'}`, sub));
+    return t;
+  }
+
+  function change(pct, prev) {
+    if (pct === null || pct === undefined) return [null, null];
+    const sign = pct >= 0 ? '+' : '−';
+    return [`${sign}${Math.abs(pct)}% vs ${prev}`, pct >= 0 ? 'up' : 'down'];
+  }
+
+  function topTable(title, rows, unit) {
+    const box = el('div', 'border border-border p-5 space-y-3');
+    box.append(el('h3', 'text-[10px] font-mono text-muted uppercase tracking-wider', title));
+    if (!rows.length) {
+      box.append(el('p', 'text-xs font-mono text-muted', 'Nothing this week.'));
+      return box;
+    }
+    const max = Math.max(...rows.map(r => r.n));
+    for (const r of rows) {
+      const row = el('div', 'space-y-1');
+      const line = el('div', 'flex items-baseline justify-between gap-4 text-xs font-mono');
+      line.append(el('span', 'text-heading truncate', r.k));
+      line.append(el('span', 'text-muted shrink-0', `${fmt(r.n)} ${unit}`));
+      const bar = el('div', 'h-1 bg-black');
+      bar.style.width = `${Math.max(2, (r.n / max) * 100)}%`;
+      row.append(line, bar);
+      box.append(row);
+    }
+    return box;
+  }
+
+  function renderReport(r) {
+    document.title = `${r.week} — hive Weekly Reports`;
+    const back = el('a', 'inline-flex items-center gap-2 text-xs font-mono text-muted hover:text-heading transition-colors');
+    back.href = location.pathname;
+    const icon = el('i', 'w-3 h-3');
+    icon.setAttribute('data-lucide', 'arrow-left');
+    back.append(icon, el('span', null, 'All reports'));
+
+    const head = el('div', 'space-y-2');
+    head.append(el('div', 'text-[10px] font-mono text-muted uppercase tracking-wider', `${r.period_start} → ${r.period_end}`));
+    head.append(el('h2', 'text-2xl sm:text-3xl font-medium text-heading tracking-tight', r.title));
+
+    const [evSub, evCls] = change(r.change.events, r.previous);
+    const [ipSub, ipCls] = change(r.change.ips, r.previous);
+    const tiles = el('div', 'grid grid-cols-2 md:grid-cols-4 gap-4');
+    tiles.append(
+      tile('Attacks', fmt(r.totals.events), evSub, evCls),
+      tile('Addresses listed', fmt(r.totals.ips), ipSub, ipCls),
+      tile('New this week', fmt(r.ips.new), r.previous ? `${fmt(r.ips.returning)} returning` : null),
+      tile('Dropped off', fmt(r.ips.dropped), `${fmt(r.totals.ipv4)} IPv4 · ${fmt(r.totals.ipv6)} IPv6`),
+    );
+
+    const story = el('div', 'max-w-2xl space-y-3');
+    for (const h of r.highlights) story.append(el('p', 'text-base leading-relaxed text-body font-light', h));
+
+    const tops = el('div', 'grid grid-cols-1 md:grid-cols-2 gap-4');
+    tops.append(
+      topTable('Passwords tried', r.top.passwords, '×'),
+      topTable('Usernames tried', r.top.usernames, '×'),
+      topTable('Web paths probed', r.top.paths, 'req'),
+      topTable('Source countries', r.top.countries, 'events'),
+    );
+
+    const ipBox = el('div', 'border border-border overflow-x-auto');
+    const table = el('table', 'w-full text-xs font-mono');
+    const thead = el('tr', 'text-left text-[10px] text-muted uppercase tracking-wider border-b border-border');
+    for (const h of ['Address', 'SSH', 'HTTP', 'Last seen']) thead.append(el('th', 'px-4 py-3 font-normal', h));
+    table.append(thead);
+    for (const e of r.top_ips) {
+      const tr = el('tr', 'border-b border-border last:border-0');
+      const seen = e.last_seen ? new Date(e.last_seen * 1000).toISOString().slice(0, 16).replace('T', ' ') : '—';
+      tr.append(el('td', 'px-4 py-2 text-heading', e.ip), el('td', 'px-4 py-2', fmt(e.ssh)),
+                el('td', 'px-4 py-2', fmt(e.http)), el('td', 'px-4 py-2 text-muted', seen));
+      table.append(tr);
+    }
+    ipBox.append(table);
+
+    const dl = el('div', 'flex flex-wrap gap-3');
+    for (const [name, url] of Object.entries(r.lists || {})) {
+      const a = el('a', 'inline-flex items-center gap-2 border border-border hover:border-borderHover text-heading px-4 py-2 text-xs font-mono transition-colors', name);
+      a.href = url;
+      a.target = '_blank';
+      dl.append(a);
+    }
+    const usage = el('pre', null,
+      'curl -fsSL https://raw.githubusercontent.com/itsF4LCON/hive-blocklist/main/lists/ipset.txt | sudo ipset restore\n' +
+      'sudo iptables -I INPUT -m set --match-set hive-blocklist src -j DROP');
+
+    content.replaceChildren(
+      back, head, tiles, story,
+      heading('What they tried'), tops,
+      heading('Busiest addresses', 'top 10'), ipBox,
+      heading('Block them'), el('p', 'text-sm text-body font-light max-w-2xl',
+        'These lists always hold the latest week. Each address drops off 7 days after it stops attacking.'),
+      dl, usage,
+    );
+  }
+
+  function renderError(message) {
+    const box = el('div', 'text-xs font-mono text-muted border border-border px-4 py-3 bg-card inline-block', message);
+    content.replaceChildren(box);
+  }
+
+  async function main() {
+    const week = params.get('w');
+    try {
+      if (week) {
+        const url = weekPath(week);
+        if (!url) throw new Error('unknown week');
+        renderReport(await getJSON(url));
+      } else {
+        renderList(await getJSON(`${BASE}/reports/index.json`));
+      }
+    } catch (e) {
+      if (!week && e.message.startsWith('404')) renderList([]);
+      else renderError(week ? `Couldn't load the report for ${week} (${e.message}).` : `Couldn't load reports (${e.message}).`);
+    }
+    if (window.lucide) lucide.createIcons();
+  }
+
+  if (window.lucide) lucide.createIcons();
+  main();
+</script>
+</body>
+</html>
