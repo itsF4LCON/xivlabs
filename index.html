@@ -207,17 +207,42 @@
                 <span class="text-xs font-mono text-muted">07</span>
             </div>
 
-                <a href="https://github.com/itsF4LCON/desk" target="_blank" class="block p-6 border border-border bg-black dark-surface interactive-element group">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="relative block p-6 border border-border bg-black dark-surface interactive-element group md:col-span-2">
+                    <a href="https://github.com/itsF4LCON/hive" target="_blank" class="absolute inset-0" aria-label="hive on GitHub"></a>
                     <div class="flex items-center justify-between mb-4">
                         <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
                         <i data-lucide="arrow-up-right" class="w-4 h-4 text-muted group-hover:text-heading transition-colors"></i>
                     </div>
-                    <h3 class="text-base font-medium text-heading mb-2">desk</h3>
+                    <h3 class="text-base font-medium text-heading mb-2">hive</h3>
                     <p class="text-sm text-body font-light mb-6">
-                        Self-hosted remote desktop for Linux in any browser: 1080p60 hardware-encoded H.264 over WebRTC, behind Cloudflare Tunnel + Access, a password and TOTP.
+                        Low-interaction SSH and HTTP honeypot that records every login attempt and probe without ever letting anyone in, feeding a live attack map through a Cloudflare Worker.
                     </p>
-                    <div class="text-[10px] font-mono text-muted">Remote Access</div>
-                </a>
+                    <div class="flex items-center justify-between">
+                        <div class="text-[10px] font-mono text-muted">Threat Intelligence</div>
+                        <div class="flex gap-4">
+                            <a href="#attacks" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">See live map</a>
+                            <a href="/reports" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">Weekly reports</a>
+                            <a href="https://github.com/itsF4LCON/hive-blocklist" target="_blank" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">Blocklist</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative block p-6 border border-border bg-black dark-surface interactive-element group">
+                    <a href="https://github.com/itsF4LCON/aps" target="_blank" class="absolute inset-0" aria-label="aps on GitHub"></a>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-muted group-hover:text-heading transition-colors"></i>
+                    </div>
+                    <h3 class="text-base font-medium text-heading mb-2">aps</h3>
+                    <p class="text-sm text-body font-light mb-6">
+                        Edge Anti-Phishing Scanner designed to detect and analyze phishing URL attempts within 15ms.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="text-[10px] font-mono text-muted">Threat Intelligence</div>
+                        <a href="/aps-api" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">Get API Key</a>
+                    </div>
+                </div>
 
                 <div class="relative block p-6 border border-border bg-black dark-surface interactive-element group">
                     <a href="https://github.com/itsF4LCON/hive-blocklist" target="_blank" class="absolute inset-0" aria-label="hive-blocklist on GitHub"></a>
@@ -251,21 +276,17 @@
                     </div>
                 </div>
 
-                <div class="relative block p-6 border border-border bg-black dark-surface interactive-element group">
-                    <a href="https://github.com/itsF4LCON/aps" target="_blank" class="absolute inset-0" aria-label="aps on GitHub"></a>
+                <a href="https://github.com/itsF4LCON/desk" target="_blank" class="block p-6 border border-border bg-black dark-surface interactive-element group">
                     <div class="flex items-center justify-between mb-4">
                         <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
                         <i data-lucide="arrow-up-right" class="w-4 h-4 text-muted group-hover:text-heading transition-colors"></i>
                     </div>
-                    <h3 class="text-base font-medium text-heading mb-2">aps</h3>
+                    <h3 class="text-base font-medium text-heading mb-2">desk</h3>
                     <p class="text-sm text-body font-light mb-6">
-                        Edge Anti-Phishing Scanner designed to detect and analyze phishing URL attempts within 15ms.
+                        Self-hosted remote desktop for Linux in any browser: 1080p60 hardware-encoded H.264 over WebRTC, behind Cloudflare Tunnel + Access, a password and TOTP.
                     </p>
-                    <div class="flex items-center justify-between">
-                        <div class="text-[10px] font-mono text-muted">Threat Intelligence</div>
-                        <a href="/aps-api" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">Get API Key</a>
-                    </div>
-                </div>
+                    <div class="text-[10px] font-mono text-muted">Remote Access</div>
+                </a>
 
                 <div class="relative block p-6 border border-border bg-black dark-surface interactive-element group">
                     <a href="https://github.com/itsF4LCON/dealbreaker" target="_blank" class="absolute inset-0" aria-label="dealbreaker on GitHub"></a>
@@ -284,26 +305,6 @@
                 </div>
 
                 <div class="relative block p-6 border border-border bg-black dark-surface interactive-element group">
-                    <a href="https://github.com/itsF4LCON/hive" target="_blank" class="absolute inset-0" aria-label="hive on GitHub"></a>
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
-                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-muted group-hover:text-heading transition-colors"></i>
-                    </div>
-                    <h3 class="text-base font-medium text-heading mb-2">hive</h3>
-                    <p class="text-sm text-body font-light mb-6">
-                        Low-interaction SSH and HTTP honeypot that records every login attempt and probe without ever letting anyone in, feeding a live attack map through a Cloudflare Worker.
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="text-[10px] font-mono text-muted">Threat Intelligence</div>
-                        <div class="flex gap-4">
-                            <a href="#attacks" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">See live map</a>
-                            <a href="/reports" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">Weekly reports</a>
-                            <a href="https://github.com/itsF4LCON/hive-blocklist" target="_blank" class="relative text-[10px] font-mono text-muted hover:text-heading transition-colors underline underline-offset-2">Blocklist</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="relative block p-6 border border-border bg-black dark-surface interactive-element group md:col-span-2">
                     <a href="https://itsf4lcon.itch.io/left-behind-the-case" target="_blank" class="absolute inset-0" aria-label="Left Behind: The Case on itch.io"></a>
                     <div class="flex items-center justify-between mb-4">
                         <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Godot</span>
