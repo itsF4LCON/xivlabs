@@ -128,7 +128,7 @@
       <div class="space-y-3 max-w-2xl">
         <h1 class="text-4xl sm:text-5xl font-medium text-heading tracking-tight">APS Edge API</h1>
         <p class="text-lg leading-relaxed text-body font-light">
-          Sub-15ms phishing URL detection on Cloudflare's global edge network.
+          Phishing URL detection on Cloudflare's edge: about 100 ms for a URL it has seen, about half a second for a new one.
           The browser extension works out of the box — no key needed.
           Direct API access for your own projects requires a key.
         </p>
@@ -162,7 +162,7 @@
         <div class="p-6 border border-border bg-black dark-surface">
           <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-3">03</div>
           <h3 class="text-sm font-medium text-white mb-2">Edge Response</h3>
-          <p class="text-sm text-gray-400 font-light">Verdict delivered from the nearest Cloudflare PoP. Globally sub-15ms for cached domains.</p>
+          <p class="text-sm text-gray-400 font-light">Runs in the nearest Cloudflare location. Measured from Belgium: about 100 ms for a cached URL, 0.5 to 0.7 s for a new one, most of it the model call.</p>
         </div>
       </div>
     </section>
