@@ -151,13 +151,13 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="p-6 border border-border bg-black dark-surface">
           <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-3">01</div>
-          <h3 class="text-sm font-medium text-white mb-2">Domain Cache</h3>
-          <p class="text-sm text-gray-400 font-light">Checks Cloudflare D1 for a previously seen verdict. Returns in &lt;5ms if found.</p>
+          <h3 class="text-sm font-medium text-white mb-2">URL Signals</h3>
+          <p class="text-sm text-gray-400 font-light">Brand lookalikes, homoglyphs, combosquats, shared hosting and domain age from RDAP, each with a weight. Every verdict lists its reasons.</p>
         </div>
         <div class="p-6 border border-border bg-black dark-surface">
           <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-3">02</div>
-          <h3 class="text-sm font-medium text-white mb-2">AI Classification</h3>
-          <p class="text-sm text-gray-400 font-light">New domains are evaluated by Llama 3.1 running on Workers AI. Result is cached for 7 days.</p>
+          <h3 class="text-sm font-medium text-white mb-2">Feed &amp; AI</h3>
+          <p class="text-sm text-gray-400 font-light">Checks the OpenPhish feed, then asks Llama 3.1 on Workers AI about URLs the signals can't decide. Clean results are re-checked after 6 hours, flagged ones after 7 days.</p>
         </div>
         <div class="p-6 border border-border bg-black dark-surface">
           <div class="text-[10px] font-mono text-muted uppercase tracking-wider mb-3">03</div>
