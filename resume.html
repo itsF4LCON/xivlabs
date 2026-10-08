@@ -151,7 +151,7 @@
             <h3 class="font-medium text-heading"><a href="https://github.com/itsF4LCON/aps" class="print-url" data-url="github.com/itsF4LCON/aps">aps</a></h3>
             <span class="text-xs font-mono text-muted">Rust, Cloudflare Workers, D1, KV, Workers AI</span>
           </div>
-          <p class="text-sm text-body mt-1">Anti-phishing scanner that runs at the edge and gives a verdict on a URL in about 15 ms. Known domains are answered from a D1 threat cache, and new ones are classified with Workers AI. It has a public API with self-service keys and rate limiting.</p>
+          <p class="text-sm text-body mt-1">Anti-phishing scanner in Rust on Cloudflare Workers. Scores URLs with explainable signals (brand lookalikes, homoglyphs, new domains via RDAP), checks the OpenPhish feed, and asks Workers AI only about what the signals can't decide. About 100 ms for a cached URL, about half a second for a new one. Evaluated against 12,807 phishing URLs and the Tranco top 10,000. Public API with self-service keys and rate limiting.</p>
         </div>
 
         <div class="entry py-4">
