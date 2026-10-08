@@ -200,7 +200,9 @@ X-API-Key: aps_<span class="token-str">your_key_here</span>
           <div class="text-[10px] font-mono text-muted uppercase tracking-wider">Response</div>
           <pre>{
   <span class="token-key">"blocked"</span>: <span class="token-bool">false</span>,
-  <span class="token-key">"reason"</span>: <span class="token-str">"Base domain verified as safe in cache."</span>
+  <span class="token-key">"reason"</span>: <span class="token-str">"No phishing signals found."</span>,
+  <span class="token-key">"score"</span>: 0,
+  <span class="token-key">"signals"</span>: []
 }</pre>
         </div>
 
@@ -231,14 +233,14 @@ X-API-Key: aps_<span class="token-str">your_key_here</span>
             <div class="w-1.5 h-1.5 bg-heading rounded-full mt-1.5 shrink-0"></div>
             <div>
               <div class="text-xs font-mono text-heading mb-0.5">Extension</div>
-              <div class="text-sm text-body font-light">30 requests / IP / minute. Shared pool — fair use.</div>
+              <div class="text-sm text-body font-light">30 requests per minute per client (an IPv4 address or IPv6 /64).</div>
             </div>
           </div>
           <div class="flex items-start gap-3">
             <div class="w-1.5 h-1.5 bg-heading rounded-full mt-1.5 shrink-0"></div>
             <div>
               <div class="text-xs font-mono text-heading mb-0.5">API Key</div>
-              <div class="text-sm text-body font-light">30 requests / IP / minute. Same limit, separate access path.</div>
+              <div class="text-sm text-body font-light">30 requests per minute per client, counted together with extension use.</div>
             </div>
           </div>
         </div>
@@ -254,7 +256,7 @@ X-API-Key: aps_<span class="token-str">your_key_here</span>
       <div class="border border-border bg-surface p-6 space-y-6 max-w-xl">
         <p class="text-sm text-body font-light leading-relaxed">
           Keys are issued instantly. Store yours securely — it won't be shown again.
-          Each key is rate-limited per IP so one compromised key can't abuse the service.
+          Limits are per client, not per key, so extra keys don't buy extra requests.
         </p>
 
         <div class="space-y-4">
