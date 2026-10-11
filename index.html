@@ -132,6 +132,7 @@
             <nav class="hidden md:flex items-center space-x-8 text-xs font-mono">
                 <a href="#about" class="text-muted hover:text-heading transition-colors">About</a>
                 <a href="#projects" class="text-muted hover:text-heading transition-colors">Projects</a>
+                <a href="#open-source" class="text-muted hover:text-heading transition-colors">Open Source</a>
                 <a href="#tech-stack" class="text-muted hover:text-heading transition-colors">Tech Stack</a>
                 <a href="#attacks" class="text-muted hover:text-heading transition-colors">Attacks</a>
                 <a href="/reports" class="text-muted hover:text-heading transition-colors">Reports</a>
@@ -156,6 +157,7 @@
         <nav id="mobile-nav" class="md:hidden hidden" aria-label="Main">
       <a href="#about" class="block px-6 py-3 border-t border-white/10 text-sm font-mono text-muted hover:text-white transition-colors">About</a>
       <a href="#projects" class="block px-6 py-3 border-t border-white/10 text-sm font-mono text-muted hover:text-white transition-colors">Projects</a>
+      <a href="#open-source" class="block px-6 py-3 border-t border-white/10 text-sm font-mono text-muted hover:text-white transition-colors">Open Source</a>
       <a href="#tech-stack" class="block px-6 py-3 border-t border-white/10 text-sm font-mono text-muted hover:text-white transition-colors">Tech Stack</a>
       <a href="#attacks" class="block px-6 py-3 border-t border-white/10 text-sm font-mono text-muted hover:text-white transition-colors">Attacks</a>
       <a href="/reports" class="block px-6 py-3 border-t border-white/10 text-sm font-mono text-muted hover:text-white transition-colors">Reports</a>
@@ -446,6 +448,90 @@
             </div>
         </section>
 
+        <section id="open-source" class="space-y-8 scroll-mt-24">
+            <div class="flex items-center justify-between border-b border-border pb-4">
+                <h2 class="text-lg font-medium text-heading">Open Source Contributions</h2>
+                <span class="text-xs font-mono text-muted">08</span>
+            </div>
+
+            <div class="border border-border bg-surface p-6 space-y-4">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="inline-flex items-center gap-1.5 bg-heading text-white px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider">
+                        <i data-lucide="package-check" class="w-3 h-3"></i>Shipped in v0.7.0
+                    </span>
+                    <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
+                    <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">46k ★</span>
+                </div>
+                <h3 class="text-xl font-medium text-heading"><a href="https://github.com/storytold/photocraft" target="_blank" class="hover:underline underline-offset-4">PhotoCraft</a></h3>
+                <p class="text-sm text-body font-light leading-relaxed">
+                    An open-source, clean-room reimplementation of Adobe Photoshop in pure Rust. My first two PRs shipped in the
+                    <a href="https://github.com/storytold/photocraft/releases/tag/v0.7.0" target="_blank" class="underline underline-offset-2 hover:text-heading">v0.7.0 release</a>,
+                    which lists me under New Contributors; the app credits me in About › Contributors.
+                </p>
+                <ul class="divide-y divide-border border-t border-border">
+                    <li class="flex items-start justify-between gap-4 py-3">
+                        <a href="https://github.com/storytold/photocraft/pull/2448" target="_blank" class="text-sm text-body font-light hover:text-heading transition-colors"><span class="font-mono text-xs text-muted mr-2">#2448</span>OpenEXR/HDR export: linearize grayscale documents too</a>
+                        <span data-pr="storytold/photocraft#2448" class="shrink-0 border border-border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-heading">Merged</span>
+                    </li>
+                    <li class="flex items-start justify-between gap-4 py-3">
+                        <a href="https://github.com/storytold/photocraft/pull/2731" target="_blank" class="text-sm text-body font-light hover:text-heading transition-colors"><span class="font-mono text-xs text-muted mr-2">#2731</span>Home screen: remove individual Recent entries</a>
+                        <span data-pr="storytold/photocraft#2731" class="shrink-0 border border-border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-heading">Merged</span>
+                    </li>
+                    <li class="flex items-start justify-between gap-4 py-3">
+                        <a href="https://github.com/storytold/photocraft/pull/3465" target="_blank" class="text-sm text-body font-light hover:text-heading transition-colors"><span class="font-mono text-xs text-muted mr-2">#3465</span>Brush and Pencil: hold ~ to erase, and Clear mode</a>
+                        <span data-pr="storytold/photocraft#3465" class="shrink-0 border border-border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted">In review</span>
+                    </li>
+                    <li class="flex items-start justify-between gap-4 py-3">
+                        <a href="https://github.com/storytold/photocraft/pull/3545" target="_blank" class="text-sm text-body font-light hover:text-heading transition-colors"><span class="font-mono text-xs text-muted mr-2">#3545</span>History panel: snapshots (camera button, snapshot rows)</a>
+                        <span data-pr="storytold/photocraft#3545" class="shrink-0 border border-border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted">In review</span>
+                    </li>
+                    <li class="flex items-start justify-between gap-4 py-3">
+                        <a href="https://github.com/storytold/photocraft/pull/3567" target="_blank" class="text-sm text-body font-light hover:text-heading transition-colors"><span class="font-mono text-xs text-muted mr-2">#3567</span>History panel: New Snapshot dialog and the first snapshot</a>
+                        <span data-pr="storytold/photocraft#3567" class="shrink-0 border border-border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted">In review</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-6 border border-border bg-black dark-surface flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
+                        <span class="text-[10px] font-mono text-muted">40k ★</span>
+                    </div>
+                    <h3 class="text-base font-medium text-heading"><a href="https://github.com/nushell/nushell" target="_blank" class="hover:underline underline-offset-4">nushell</a></h3>
+                    <p class="text-sm text-body font-light flex-grow">A new type of shell.</p>
+                    <div class="flex items-start justify-between gap-3 border-t border-border pt-3">
+                        <a href="https://github.com/nushell/nushell/pull/19205" target="_blank" class="text-xs text-body font-light hover:text-heading transition-colors"><span class="font-mono text-muted mr-1">#19205</span>open/save: a clear error suggesting def when a converter is an alias</a>
+                        <span data-pr="nushell/nushell#19205" class="shrink-0 border border-border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted">In review</span>
+                    </div>
+                </div>
+                <div class="p-6 border border-border bg-black dark-surface flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">Rust</span>
+                        <span class="text-[10px] font-mono text-muted">nginx-compatible</span>
+                    </div>
+                    <h3 class="text-base font-medium text-heading"><a href="https://github.com/gvozdetsky/ruxen" target="_blank" class="hover:underline underline-offset-4">ruxen</a></h3>
+                    <p class="text-sm text-body font-light flex-grow">Experimental nginx-compatible HTTP server and reverse proxy written in Rust.</p>
+                    <div class="flex items-start justify-between gap-3 border-t border-border pt-3">
+                        <a href="https://github.com/gvozdetsky/ruxen/pull/271" target="_blank" class="text-xs text-body font-light hover:text-heading transition-colors"><span class="font-mono text-muted mr-1">#271</span>One status reason table, matching nginx's ngx_http_status_lines[]</a>
+                        <span data-pr="gvozdetsky/ruxen#271" class="shrink-0 border border-border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-heading">Merged</span>
+                    </div>
+                </div>
+                <div class="p-6 border border-border bg-black dark-surface flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-mono text-muted uppercase tracking-wider border border-border px-2 py-0.5">YAML</span>
+                        <span class="text-[10px] font-mono text-muted">13k ★</span>
+                    </div>
+                    <h3 class="text-base font-medium text-heading"><a href="https://github.com/projectdiscovery/nuclei-templates" target="_blank" class="hover:underline underline-offset-4">nuclei-templates</a></h3>
+                    <p class="text-sm text-body font-light flex-grow">Community templates for the nuclei engine to find security vulnerabilities.</p>
+                    <div class="flex items-start justify-between gap-3 border-t border-border pt-3">
+                        <a href="https://github.com/projectdiscovery/nuclei-templates/pull/17392" target="_blank" class="text-xs text-body font-light hover:text-heading transition-colors"><span class="font-mono text-muted mr-1">#17392</span>CVE-2025-24367: Cacti ≤ 1.2.28 RCE detection</a>
+                        <span data-pr="projectdiscovery/nuclei-templates#17392" class="shrink-0 border border-border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted">In review</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="attacks" class="space-y-8">
             <div class="flex items-center justify-between border-b border-border pb-4">
                 <h2 class="text-lg font-medium text-heading">Live Attack Map</h2>
@@ -544,7 +630,46 @@
         fetchGitHubActivity();
         setupApsDemo();
         setupHive();
+        setupPrStatuses();
     });
+
+    const PR_STATUS_CACHE_KEY = 'pr-status-v1';
+
+    // Keep the Open Source badges current as PRs are merged: one GitHub search for my public PRs,
+    // cached for an hour. Without it the page shows the statuses written in the HTML.
+    async function setupPrStatuses() {
+        const badges = document.querySelectorAll('[data-pr]');
+        if (!badges.length) return;
+        let states = null;
+        try {
+            const c = JSON.parse(localStorage.getItem(PR_STATUS_CACHE_KEY));
+            if (c && Date.now() - c.at < 3600000) states = c.states;
+        } catch (e) {}
+        if (!states) {
+            try {
+                const res = await fetch('https://api.github.com/search/issues?q=author:itsF4LCON+type:pr+is:public&per_page=100');
+                if (!res.ok) return;
+                const data = await res.json();
+                states = {};
+                for (const pr of data.items || []) {
+                    const m = pr.html_url.match(/github\.com\/([^/]+\/[^/]+)\/pull\/(\d+)/);
+                    if (!m) continue;
+                    states[`${m[1]}#${m[2]}`] = pr.pull_request && pr.pull_request.merged_at ? 'merged' : pr.state === 'open' ? 'review' : 'closed';
+                }
+                try { localStorage.setItem(PR_STATUS_CACHE_KEY, JSON.stringify({ at: Date.now(), states })); } catch (e) {}
+            } catch (e) {
+                return;
+            }
+        }
+        const labels = { merged: 'Merged', review: 'In review', closed: 'Closed' };
+        badges.forEach(b => {
+            const state = states[b.dataset.pr];
+            if (!state) return;
+            b.textContent = labels[state];
+            b.classList.toggle('text-heading', state === 'merged');
+            b.classList.toggle('text-muted', state !== 'merged');
+        });
+    }
 
     function setupApsDemo() {
         const form = document.getElementById('apsDemoForm');
